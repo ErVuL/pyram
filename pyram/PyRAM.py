@@ -663,7 +663,7 @@ class PyRAM:
 
         return a, z, err
     
-def plot_ramTL(ram_out, rbzb, zs, rmax, zmplt, freq, Title,  **kwargs):
+def plot_tl(ram_out, rbzb, zs, rmax, zmplt, freq, Title,  **kwargs):
     
     # Colorbar min and max
     vmin = kwargs.pop('vmin')
@@ -736,7 +736,7 @@ class ram:
         return self.pyram
     
 
-def plot_ramRHOb(rbzb, zs, rmax, zmplt, rp_sb, z_sb, rhob, vmin, vmax, Nxy, Title, **kwargs):
+def plot_rhob(rbzb, zs, rmax, zmplt, rp_sb, z_sb, rhob, vmin, vmax, Nxy, Title, **kwargs):
         
     fig2, ax2 = plt.subplots()
             
@@ -798,7 +798,7 @@ def plot_ramRHOb(rbzb, zs, rmax, zmplt, rp_sb, z_sb, rhob, vmin, vmax, Nxy, Titl
     plt.tight_layout()
     return fig2, ax2
 
-def plot_ramSSP(rbzb, zs, rmax, rp_sb, z_sb, rp_ss, z_ss, cw, cb, rhob, Nxy, Title, **pyRAM_settings):
+def plot_ssp(rbzb, zs, rmax, rp_sb, z_sb, rp_ss, z_ss, cw, cb, rhob, Nxy, Title, **pyRAM_settings):
        
     fig2, ax2 = plt.subplots()
             
@@ -883,7 +883,7 @@ def plot_ramSSP(rbzb, zs, rmax, rp_sb, z_sb, rp_ss, z_ss, cw, cb, rhob, Nxy, Tit
     ax2.invert_yaxis()
     plt.tight_layout()
     
-def plot_ramATN(attn, rbzb, zs, rmax, rp_sb, z_sb, zmplt, Nxy, vmin, vmax, Title, **pyRAM_settings):
+def plot_atn(attn, rbzb, zs, rmax, rp_sb, z_sb, zmplt, Nxy, vmin, vmax, Title, **pyRAM_settings):
         
     fig2, ax2 = plt.subplots()
             
@@ -946,7 +946,7 @@ def plot_ramATN(attn, rbzb, zs, rmax, rp_sb, z_sb, zmplt, Nxy, vmin, vmax, Title
     
     return fig2, ax2
 
-def plot_ramTline(ram_out, Title, **kwargs):
+def plot_tline(ram_out, Title, **kwargs):
     
     zr = kwargs.pop('zr')
     freq = kwargs.pop('freq')
