@@ -688,7 +688,7 @@ def plot_tl(ram_out, rbzb, zs, rmax, zmplt, freq, Title,  **kwargs):
     Xg, Yg = np.meshgrid(np.array(Xg), Yg)
     fig1, ax1 = plt.subplots()
     im1 = ax1.pcolormesh(Xg/1000,Yg,Zg, cmap='jet', shading='gouraud', vmin=vmin, vmax=vmax)
-    ax1.plot(rb/1000, zb, 'k', linewidth=8)
+    ax1.plot(rb/1000, zb, 'k', linewidth=3)
     ax1.scatter(0, zs, label= "Stars", color= "k", s=500, marker="*") 
     ax1.set_xlabel('Range [km]')
     ax1.set_ylabel('Depth [m]')
@@ -787,7 +787,7 @@ def plot_rhob(rbzb, zs, rmax, zmplt, rp_sb, z_sb, rhob, vmin, vmax, Nxy, Title, 
     # Plot
     Xg, Yg = np.meshgrid(Xg/1000, Yg)
     im2 = ax2.pcolormesh(Xg, Yg, Zg, cmap='jet', shading='gouraud', vmin=vmin, vmax=vmax)
-    ax2.plot(rb/1000, zb, 'k', linewidth=8)
+    ax2.plot(rb/1000, zb, 'k', linewidth=3)
     ax2.scatter(0, zs, label= "Stars", color= "k", s=500, marker="*") 
     cbar2 = fig2.colorbar(im2, ax=ax2)
     cbar2.ax.set_ylabel('Density [g/cc]')
@@ -873,7 +873,7 @@ def plot_ssp(rbzb, zs, rmax, rp_sb, z_sb, rp_ss, z_ss, cw, cb, rhob, Nxy, Title,
     # Plot
     Xg, Yg = np.meshgrid(Xg/1000, Yg)
     im2 = ax2.pcolormesh(Xg, Yg, Zg, cmap='jet', shading='gouraud')
-    ax2.plot(rb/1000, zb, 'k', linewidth=8)
+    ax2.plot(rb/1000, zb, 'k', linewidth=3)
     ax2.scatter(0, zs, label= "Stars", color= "k", s=500, marker="*") 
     cbar2 = fig2.colorbar(im2, ax=ax2)
     cbar2.ax.set_ylabel('Sound speed [m/s]')
@@ -934,7 +934,7 @@ def plot_atn(attn, rbzb, zs, rmax, rp_sb, z_sb, zmplt, Nxy, vmin, vmax, Title, *
     # Plot
     Xg, Yg = np.meshgrid(Xg/1000, Yg)
     im2 = ax2.pcolormesh(Xg, Yg, Zg, cmap='jet', shading='gouraud', vmin=vmin, vmax=vmax)
-    ax2.plot(rb/1000, zb, 'k', linewidth=8)
+    ax2.plot(rb/1000, zb, 'k', linewidth=3)
     ax2.scatter(0, zs, label= "Stars", color= "k", s=500, marker="*") 
     cbar2 = fig2.colorbar(im2, ax=ax2)
     cbar2.ax.set_ylabel('Attenuation [dB/$\lambda$]')
