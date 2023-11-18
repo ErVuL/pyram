@@ -31,7 +31,7 @@ from time import process_time
 from pyram.matrc import matrc
 from pyram.solve import solve
 from pyram.outpt import outpt
-
+import pandas as pd
 
 class PyRAM:
 
@@ -698,43 +698,7 @@ def plot_tl(ram_out, rbzb, zs, rmax, zmplt, freq, Title,  **kwargs):
     cbar1 = fig1.colorbar(im1, ax=ax1)
     cbar1.ax.set_ylabel('Loss [dB]')
     ax1.invert_yaxis()
-
-class ram:
-    
-    def __init__(self, **kwargs):
-
-        self.inputs = dict(freq   = kwargs.pop('freq'),
-                           zs     = kwargs.pop('zs'),
-                           zr     = kwargs.pop('zr'),
-                           z_ss   = kwargs.pop('z_ss'),
-                           rp_ss  = kwargs.pop('rp_ss'),
-                           cw     = kwargs.pop('cw'),
-                           z_sb   = kwargs.pop('z_sb'),
-                           rp_sb  = kwargs.pop('rp_sb'),
-                           cb     = kwargs.pop('cb'),
-                           rhob   = kwargs.pop('rhob'),
-                           attn   = kwargs.pop('attn'),
-                           rmax   = kwargs.pop('rmax'),
-                           dr     = kwargs.pop('dr'),
-                           dz     = kwargs.pop('dz'),
-                           zmplt  = kwargs.pop('zmplt'),
-                           c0     = kwargs.pop('c0'),
-                           rbzb   = kwargs.pop('rbzb'))
-
-        self.tl_tol = 1e-2  # Tolerable mean difference in TL (dB) with reference result
-
-    def run(self, **kwargs):
-        self.pyram = PyRAM(self.inputs['freq'], self.inputs['zs'], self.inputs['zr'],
-                      self.inputs['z_ss'], self.inputs['rp_ss'], self.inputs['cw'],
-                      self.inputs['z_sb'], self.inputs['rp_sb'], self.inputs['cb'],
-                      self.inputs['rhob'], self.inputs['attn'], self.inputs['rbzb'],
-                      rmax = self.inputs['rmax'], dr=self.inputs['dr'],
-                      dz   = self.inputs['dz'], zmplt=self.inputs['zmplt'],
-                      c0   = self.inputs['c0'])
-        self.pyram.run()
-        
-        return self.pyram
-    
+   
 
 def plot_rhob(rbzb, zs, rmax, zmplt, rp_sb, z_sb, rhob, vmin, vmax, Nxy, Title, **kwargs):
         
@@ -800,6 +764,7 @@ def plot_rhob(rbzb, zs, rmax, zmplt, rp_sb, z_sb, rhob, vmin, vmax, Nxy, Title, 
 
 def plot_ssp(rbzb, zs, rmax, rp_sb, z_sb, rp_ss, z_ss, cw, cb, rhob, Nxy, Title, **pyRAM_settings):
        
+    
     fig2, ax2 = plt.subplots()
             
     X = rp_ss
@@ -883,8 +848,26 @@ def plot_ssp(rbzb, zs, rmax, rp_sb, z_sb, rp_ss, z_ss, cw, cb, rhob, Nxy, Title,
     ax2.invert_yaxis()
     plt.tight_layout()
     
-def plot_atn(attn, rbzb, zs, rmax, rp_sb, z_sb, zmplt, Nxy, vmin, vmax, Title, **pyRAM_settings):
+def plot_attenuation(env, Title, vmin, vmax, Nxy=500, **pyRAM_settings):
         
+    freq = env['frequency']
+    zs = env['tx_depth']
+    zr = env['rx_depth'][-1]
+    z_ss = np.array(env['soundspeed'][:,0])
+    rp_ss = np.array(env['soundspeed_range'])
+    cw = np.array(env['soundspeed'][:,1:])
+    z_sb = np.array(env['bottom_depth']-np.max(env['depth'][:,1]),ndmin=1)
+    rp_sb = np.array(env['bottom_range'])
+    cb = np.array(env['bottom_soundspeed'],ndmin=2)
+    rhob = np.array(env['bottom_density'],ndmin=2)
+    attn = np.array(env['bottom_absorption'],ndmin=2)
+    rbzb = np.array((env['depth'][:,0],env['depth'][:,1])).transpose()
+    rmax = env['rx_range'][-1],
+    dr=env['rx_range'][2]-env['rx_range'][1],
+    dz=env['rx_depth'][2]-env['rx_depth'][1],
+    zmplt=env['rx_depth'][-1],
+    c0=np.mean(env['soundspeed'][:,1])
+             
     fig2, ax2 = plt.subplots()
             
     Xb = rp_sb
