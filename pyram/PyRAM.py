@@ -141,10 +141,10 @@ class PyRAM:
         # Source and receiver depths
         if not z_ss[0] <= self._zs <= z_ss[-1]:
             self._status_ok = False
-            raise ValueError('Source depth outside sound speed depths')
+            raise ValueError('RAM: Source depth outside sound speed depths')
         if not z_ss[0] <= self._zr <= z_ss[-1]:
             self._status_ok = False
-            raise ValueError('Receiver depth outside sound speed depths')
+            raise ValueError('RAM: Receiver depth outside sound speed depths')
         if self._status_ok:
             self._z_ss = z_ss
 
@@ -155,7 +155,7 @@ class PyRAM:
         if (cw_dims[0] == num_depths) and (cw_dims[1] == num_ranges):
             self._rp_ss, self._cw = rp_ss, cw
         else:
-            raise ValueError('Dimensions of z_ss, rp_ss and cw must be consistent.')
+            raise ValueError('RAM: Dimensions of z_ss, rp_ss and cw must be consistent.')
 
         # Seabed profiles
         self._z_sb = z_sb
@@ -169,13 +169,13 @@ class PyRAM:
             self._rp_sb, self._cb, self._rhob, self._attn = \
                 rp_sb, cb, rhob, attn
         else:
-            raise ValueError('Dimensions of z_sb, rp_sb, cb, rhob and attn must be consistent.')
+            raise ValueError('RAM: Dimensions of z_sb, rp_sb, cb, rhob and attn must be consistent.')
 
         if rbzb[:, 1].max() <= self._z_ss[-1]:
             self._rbzb = rbzb
         else:
             self._status_ok = False
-            raise ValueError('Deepest sound speed point must be at or below deepest bathymetry point.')
+            raise ValueError('RAM: Deepest sound speed point must be at or below deepest bathymetry point.')
 
         # Set flags for range-dependence (water SSP, seabed profile, bathymetry)
         self.rd_ss = True if self._rp_ss.size > 1 else False
@@ -659,7 +659,7 @@ class PyRAM:
             z += dz
 
             if _iter == 100:
-                raise ValueError('Laguerre method not converging. Try a different combination of DR and NP.')
+                raise ValueError('RAM: Laguerre method not converging. Try a different combination of DR and NP.')
 
         return a, z, err
     
