@@ -264,8 +264,12 @@ class PyRAM:
         nvr = int(np.floor(self._rmax / (self._dr * self._ndr)))
         self._rmax = nvr * self._dr * self._ndr
         nvz = int(np.floor(self.nzplt / self._ndz))
-        self.vr = np.arange(1, nvr + 1) * self._dr * self._ndr
-        self.vz = np.arange(1, nvz + 1) * self._dz * self._ndz
+        self.vr = np.arange(1, nvr + 1) * self._dr * self._ndr # => range
+        #print(self.vr)
+        #print(np.size(self.vr))
+        self.vz = np.arange(1, nvz + 1) * self._dz * self._ndz # => depth
+        #print(self.vz)
+        #print(np.size(self.vz))
         self.tll = np.zeros(nvr)
         self.tlg = np.zeros([nvz, nvr])
         self.cpl = np.zeros(nvr) * 1j
